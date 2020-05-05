@@ -22,4 +22,4 @@ def ensure_profile_exists(sender, instance, **kwargs):
     if kwargs.get('created', False):
     
         Profile.objects.get_or_create(user=instance)
-        print("se creo un perfil")
+        # print("se creo un perfil")
