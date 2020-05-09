@@ -67,7 +67,7 @@
                 var content = encodeURIComponent(document.getElementById("content").value);
                 if(content.length > 0){
                   const url = "{% url 'messenger:add' thread.pk %}" + "?content=" + content;
-                  fetch(url).then(response => response.json()).then(function(data){
+                  fetch(url, {'credentials':'include'}).then(response => response.json()).then(function(data){
                     alert(data.created);
                   })
                 }
