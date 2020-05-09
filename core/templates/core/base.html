@@ -32,7 +32,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'profiles:list' %}">Perfiles</a>
-              </li>
+              </li>          
             </ul>
             <ul class="navbar-nav">
             {% if not request.user.is_authenticated %}
@@ -44,11 +44,15 @@
               </li>
             {% else %}
               <li class="nav-item">
+                <a class="nav-link" href="{% url 'messenger:list' %}">Mensajes</a>
+              </li>            
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Salir</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
               </li>
+              
             {% endif %}
             </ul>
           </div>
