@@ -6,7 +6,7 @@ class Message(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
-    created = models.DateField(auto_now=True)
+    created = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['created']
@@ -30,8 +30,12 @@ class Thread(models.Model):
 
     users = models.ManyToManyField(User, related_name='threads')
     messages = models.ManyToManyField(Message)
+    updated = models.DateTimeField(auto_now=True)
 
     objects = ThreadManager()
+        
+    class Meta:
+        ordering = ['-updated']
 
 def message_changed(sender, **kwargs):
     instance = kwargs.pop('instance', None)
@@ -48,6 +52,7 @@ def message_changed(sender, **kwargs):
                 false_pk_set.add(msg_pk)
 
     pk_set.difference_update(false_pk_set)
-    print(instance, action, pk_set)
+    print(instance.updated)
+    instance.save()
 
 m2m_changed.connect(message_changed, sender=Thread.messages.through)
